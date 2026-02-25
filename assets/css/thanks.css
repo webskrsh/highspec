@@ -1,0 +1,90 @@
+.form-complete{
+  background: var(--c_lightgray);
+  display: grid;
+  place-items: center;
+  padding: 2.5rem 1rem;
+  color: var(--c_black);
+  min-height: 90vh;
+}
+.form-complete .wrap{
+  width: min(var(--form_width), 92vw);
+}
+.form-complete .card{
+  background: var(--c_form_white);
+  border-radius: 1rem;
+  padding: 3em 2em;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+.form-complete .icon{
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: 0 auto 1rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: var(--c_white);
+  background: var(--c_primary);
+}
+.form-complete .title{
+  line-height: 1.3;
+  margin-bottom: 1.5em;
+}
+.form-complete .text{
+  margin: 0 0 1.25rem;
+  line-height: 1.8;
+  color: rgba(0,0,0,.75);
+}
+.form-complete .notice{
+  background: var(--c_white);
+  border-top: 1px solid var(--c_border);
+  padding-top: 1em;
+  margin: 0 0 1.5rem;
+}
+.form-complete .small{
+  margin: 0;
+  line-height: 1.6;
+  color: rgba(0,0,0,.7);
+}
+.form-complete .actions{
+  display: grid;
+  gap: .75rem;
+  justify-items: center;
+}
+.form-complete .btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 18rem;
+  padding: .9rem 1rem;
+  border-radius: .75rem;
+  background: var(--c_primary);
+  color: var(--c_white);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity .2s;
+}
+.form-complete .btn:hover{
+  opacity: .85;
+}
+.form-complete .link{
+  color: var(--c_primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.form-complete .link:hover{
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 520px){
+  .form-complete .card{
+    padding: 1.75rem 1.25rem;
+    border-radius: .9rem;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+footer{
+  padding-top: 0;
+}

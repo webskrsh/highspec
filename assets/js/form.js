@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const mq = window.matchMedia("(max-width: 520px)");
   const container = form.querySelector(":scope > .container");
 
-  // 🔥 ここ追加
   const linkTriggers = document.querySelectorAll('a[href="#form-open"]');
 
   const openTriggers = [
@@ -43,11 +42,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const willOpen = !form.classList.contains("_open");
     form.classList.toggle("_open");
 
-    if (willOpen) focusFirstField();
+    if (willOpen) {
+      lockBody();
+      focusFirstField();
+    }
   }
 
   function closeSP(e) {
     if (e) e.preventDefault();
+
+    if (form.classList.contains("_open")) {
+      unlockBody();
+    }
     form.classList.remove("_open");
   }
 
@@ -82,6 +88,28 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleClose(e) {
     if (mq.matches) closeSP(e);
     else closePC(e);
+  }
+
+  let scrollY = 0;
+
+  function lockBody() {
+    scrollY = window.scrollY;
+
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  }
+
+  function unlockBody() {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+
+    window.scrollTo(0, scrollY);
   }
 
   openTriggers.forEach(el => el.addEventListener("click", handleOpen));
