@@ -96,3 +96,9 @@ li, img{
 img{
   max-width: 100%;
 }
+button{
+	font-family: inherit;
+	font-weight: inherit;
+	font-size: inherit;
+	color: inherit;
+}

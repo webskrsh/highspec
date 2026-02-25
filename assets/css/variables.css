@@ -13,3 +13,8 @@
   --form_width: 400px;
 
 }
+@media screen and (max-width: 520px){
+  :root{
+    --form_width: 100%;
+  }
+}

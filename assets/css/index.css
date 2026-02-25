@@ -32,7 +32,7 @@ section.hero .bg{
 }
 @media screen and (max-width: 520px){
   section.hero .bg{
-    padding: 3em 5vw 0 5vw;
+    padding: 2em 5vw 0 5vw;
     padding-right: 5vw !important;
     background-position: center bottom;
     background-size: 100% auto;
@@ -182,6 +182,35 @@ section.form .container::-webkit-scrollbar{
   width: 0;
   height: 0;
 }
+@media screen and (max-width: 520px){
+  section.form{
+    position: fixed;
+    right: auto;
+    top: auto;
+    bottom: 0;
+    left: auto;
+    padding: 10vw 0 0 0;
+    background-color: rgba(11,51,33,.96);
+    pointer-events: none;
+    opacity: 0;
+    transition: transform .3s cubic-bezier(0,.98,.45,.98);
+    max-height: 100%;
+    overflow: hidden;
+  }
+  section.form._open{
+    opacity: 1;
+    pointer-events: all;
+  }
+  section.form .container{
+    border-radius: 1em 1em 0 0;
+    height: 100%;
+    transform: translate(0, 100%);
+    transition: transform .3s cubic-bezier(0,.98,.45,.98);
+  }
+  section.form._open .container{
+    transform: translate(0, 0);
+  }
+}
 
 /*--------------------------------------------------------------------*/
 /* heading */
@@ -198,6 +227,54 @@ section.form .container .heading .title{
   background-position: left center, right center;
   background-size: 1.5em auto;
   margin: auto;
+}
+@media screen and (max-width: 520px){
+  section.form .container .heading{
+    padding: 2em 0 1em 0;
+    --font_size: 16;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* prompting */
+
+section.form .container .bodying .prompting{
+  display: none;
+  margin-bottom: .5em;
+}
+section.form._prompt .container .bodying .prompting{
+  display: block;
+}
+section.form .container .bodying .prompting .balloon{
+  background-color: #8e003a;
+  color: var(--c_white);
+  padding: .75em 0;
+  position: relative;
+  animation: prompting 2s infinite;
+}
+section.form .container .bodying .prompting .balloon::after{
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 5px 0 5px;
+  border-color: #8e003a transparent transparent transparent;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(0, 100%);
+}
+@keyframes prompting{
+  0%{
+    transform: translate(0, 0);
+  }
+  30%, 50%{
+   transform: translate(0, .5em); 
+  }
+  100%{
+    transform: translate(0, 0);
+  }
 }
 
 /*--------------------------------------------------------------------*/
@@ -221,10 +298,16 @@ section.form .container .bodying form .control label.required::after{
   font-size: 90%;
   color: var(--c_red);
   font-weight: 500;
+  white-space: nowrap;
 }
 section.form .container .bodying form .control .input{
   height: 3em;
   font-size: 16px;
+}
+@media screen and (max-width: 520px){
+  section.form .container .bodying{
+    padding: 2em 6vw 30vw 6vw;
+  }
 }
 
 /*--------------------------------------------------------------------*/
@@ -409,6 +492,11 @@ section.form .container .bodying form .control[data-part="agreement"] label::aft
 section.form .container .bodying form .control[data-part="agreement"] .input a{
   text-decoration: underline;
 }
+@media screen and (max-width: 520px){
+  section.form .container .bodying form .control .input label .label{
+
+  }
+}
 
 /*--------------------------------------------------------------------*/
 /* サブミット */
@@ -427,6 +515,14 @@ section.form .container .bodying form .control[data-part="submit"] button:hover{
 section.form .container .bodying form .control[data-part="submit"] .recaptcha{
   padding: 2em 0 0 0;
   color: #949494;
+}
+
+/*--------------------------------------------------------------------*/
+/* SP用閉じるボタン */
+@media screen and (max-width: 520px){
+  section.form .container [data-form-close]{
+    margin-top: 2em;
+  }
 }
 
 /**********************************************************************/
@@ -465,6 +561,9 @@ section.logos img{
 }
 
 @media screen and (max-width: 520px){
+  section.logos{
+    padding: 1em 0;
+  }
   section.logos img{
     height: 40px;
   }
@@ -668,6 +767,9 @@ section.types .bodying .block .item.i3 .label{
     align-items: stretch;
     gap: .5em;
   }
+  section.types .bodying .block .item .label{
+    min-width: 5em;
+  }
 }
 
 /**********************************************************************/
@@ -714,6 +816,9 @@ section.reasons .bodying .block .item .index{
   section.reasons .bodying .block .item .medal img{
     width: 150px;
     height: auto;
+  }
+  section.reasons .bodying .block .item .index{
+    font-size: 5.5vw;
   }
   section.reasons .bodying .block .item .description{
     --font_size: 16;
@@ -1060,6 +1165,87 @@ section.faq .list .item.open .a{
 
 @media screen and (max-width: 520px){
   section.form{
-    display: none;
+
+  }
+}
+
+/**********************************************************************/
+/* チェックリスト
+/**********************************************************************/
+
+section.checklist{
+  position: fixed;
+  left: 0;
+  top: 120vh;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity .3s;
+}
+section.checklist._open{
+  top: 0;
+  opacity: 1;
+}
+section.checklist .container{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 51, 33, .96);
+}
+section.checklist .container .card{
+  background-color: var(--c_white);
+  padding: 4em 3em 3em 3em;
+  border-radius: 1em;
+  position: relative;
+}
+section.checklist .container .card .close{
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(100%, -100%);
+  opacity: .5;
+}
+section.checklist .container .card .title{
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--c_border);
+  margin-bottom: 1em;
+}
+section.checklist .container .card .hint{
+  margin-bottom: 2em;
+}
+section.checklist .container .card .hint .label{
+  background-color: var(--c_lightgray);
+  padding: .5em 1em;
+  color: var(--c_primary)
+}
+section.checklist .container .card .list li{
+  padding-left: 1.5em;
+  background-image: url("../img/ui/check_g.svg");
+  background-repeat: no-repeat;
+  background-position: left top .15em;
+  background-size: 1.2em auto;
+  margin-bottom: .75em;
+}
+section.checklist .container .card .goform{
+  padding: 2em 0;
+  text-align: center;
+}
+section.checklist .container .card .goform button{
+  display: inline-block;
+  padding: 1em;
+  min-width: 20em;
+  color: var(--c_white);
+  background-color: var(--c_primary);
+}
+@media screen and (max-width: 520px){
+  section.checklist .container{
+    padding: 0 2vw;
+    box-sizing: border-box;
+  }
+  section.checklist .container .card{
+    padding: 2em 4vw;
+  }
+  section.checklist .container .card .list{
+    font-size: 3.7vw;
+    padding-inline: 1em;
+    line-height: 1.5;
   }
 }
