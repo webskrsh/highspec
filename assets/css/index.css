@@ -531,6 +531,7 @@ section.form .container .bodying form .control[data-part="submit"] .recaptcha{
 
 section.logos .container{
   overflow: hidden;
+  padding: 1em 0 0 0;
 }
 section.logos .track{
   display: flex;
