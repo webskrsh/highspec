@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!listEl || !template) return;
 
-  const endpoint = "https://api.freelance-mikata.com/v2/projects"; // index.html と同階層ならこれでOK
+  const endpoint = "https://api.freelance-mikata.com/v2/projects";
 
   const showPlaceholder = () => {
     if (placeholderEl) placeholderEl.hidden = false;
