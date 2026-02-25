@@ -29,10 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  function focusFirstField() {
+  function focusFirstField(duration = 0) {
     const first = getFirstField();
     if (!first) return;
-    setTimeout(() => first.focus(), 800);
+    setTimeout(() => first.focus(), duration);
   }
 
   // ----- SP -----
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (willOpen) {
       lockBody();
-      focusFirstField();
+      focusFirstField(800);
     }
   }
 
@@ -89,6 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (mq.matches) closeSP(e);
     else closePC(e);
   }
+
+  // --- custom events (jobs.jsなど外部から起動する用) ---
+  document.addEventListener("form:open", () => {
+    handleOpen(); // eなしでOK
+  });
+
+  document.addEventListener("form:close", () => {
+    handleClose(); // eなしでOK
+  });
 
   let scrollY = 0;
 

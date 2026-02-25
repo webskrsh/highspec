@@ -134,5 +134,5 @@ window.addEventListener('load', function () {
 
   }
 
-  window._global_navigation = new GlobalNavigation();
+  //window._global_navigation = new GlobalNavigation();
 });
