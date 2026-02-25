@@ -1,0 +1,34 @@
+/**********************************************************************/
+/*  フットライン
+/**********************************************************************/
+
+footer{
+  padding-top: 5em;
+}
+footer .footline{
+  flex: 1;
+  background-color: var(--c_black);
+  padding-left: 4vw;
+}
+footer .footline .container{
+  gap: 1.25em;
+  padding: .7em 0
+}
+@media screen and (max-width: 520px){
+  footer{
+    padding-top: 0;
+  }
+  footer .footline{
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+  footer .footline .container{
+    justify-content: center;
+  }
+  footer .footline .container .logo img{
+    height: 1em;
+  }
+  footer .footline .container .description{
+    font-size: clamp(10px, 3vw, 15px);
+  }
+}

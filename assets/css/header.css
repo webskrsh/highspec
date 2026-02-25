@@ -1,0 +1,130 @@
+@charset "utf-8";
+
+header{
+	position: static;
+	z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+  top: 0;
+}
+header .area{
+  width: 100%;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 520px){
+	header{
+
+	}
+}
+
+/**********************************************************************/
+/*  ヘッドライン
+/**********************************************************************/
+
+header .headline{
+  flex: 1;
+  background-color: var(--c_black);
+  padding-left: 4vw;
+}
+header .headline .container{
+  gap: 1.25em;
+  padding: .7em 0
+}
+@media screen and (max-width: 520px){
+  header .headline{
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+  header .headline .container .logo img{
+    height: 1em;
+  }
+  header .headline .container .description{
+    font-size: clamp(10px, 3vw, 15px);
+  }
+}
+
+/*--------------------------------------------------------------------*/
+
+@media screen and (min-width: 521px){
+  header .menu{
+    display: none;
+  }
+}
+@media screen and (max-width: 520px){
+  header .menu{
+    position: relative;
+    align-items: stretch;
+    border-radius: 3px;
+    display: inline-block;
+    z-index: 3;
+    margin-left: auto;
+  }
+  header .menu .button{
+    position: relative;
+    z-index: 1100;
+    width: 14px;
+    height: 14px;
+    margin: 10px;
+  }
+  header .menu .button .line{
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+    border-radius: 4px;
+    transition: all .3s;
+  }
+  header .menu .button .line:nth-of-type(1){
+    top:0;
+  }
+  header .menu .button .line:nth-of-type(2){
+    top: 0;
+    bottom: 0;
+  }
+  header .menu .button .line:nth-of-type(3){
+    bottom: 0;
+  }
+  header.active .menu .button .line:nth-of-type(1){
+    top: 0;
+    bottom: 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  header.active .menu .button .line:nth-of-type(2){
+    opacity: 0;
+  }
+  header.active .menu .button .line:nth-of-type(3){
+    top: 0;
+    bottom: 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
+/*--------------------------------------------------------------------*/
+
+.global_navigation[data-navigation-type="overlay"]{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  z-index: 999;
+}
+header.active + .global_navigation[data-navigation-type="overlay"]{
+  display: block;
+}
+.global_navigation[data-navigation-type="overlay"] .bg_button{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}

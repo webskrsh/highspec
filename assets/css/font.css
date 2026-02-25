@@ -1,0 +1,793 @@
+@charset "utf-8";
+
+:root{
+	--font_size: 16; /*基本フォントサイズ*/
+  --font_size_base: 16; /*ジャンプ率のための基本フォントサイズ*/
+  --font_size_factor: 1; /*ブレイクポイント用ファクター、これで全体のフォントサイズをデバイス毎に調整*/
+  --font_size_jump: 0; /* ブレイクポイント用ジャンプ率ファクター、 これで全体のジャンプ率をデバイスごとに調整*/
+
+  /*
+  
+  使い方
+  １．デザイン上のフォントサイズを .fs_NN　で指定
+  ２．ブレイクポイント毎に--font_size（本文のフォントサイズ）を指定する
+  ３．ブレイクポイント毎に--font_size_factorで、比率を指定する（1920に対するどの程度小さくするかを目安にする）
+  ４．factorで本文が小さくなりすぎるときは--font_size_jumpでジャンプ率を適正に調整する（0~1の範囲で、1を指定すると全てが--font_sizeと同じ大きさになる）
+  　　※0であれば1920px上でのジャンプ率そのまま、1であればすべてが--font_sizeの大きさになります。
+
+  */
+
+  /*
+  注意事項・補足
+
+  ・--font_size_jump は 0〜1 の間で設定
+    → 0 に近いほどデザイン通りの差（大きいサイズ差）
+    → 1 に近いほど差がなくなり、全ての fs_xx が同じサイズ（--font_size）に収束する
+
+  ・--font_size_jump の効果は「--font_size_actual と --font_size の距離」に比例して増加する
+    → --font_size に近いサイズは jump の影響が小さい
+    → 離れるほど jump の影響が大きく、サイズ補正が強くかかる
+
+  ・--font_size_base は fs_xx の比率計算の基準値
+    → 通常は 16 を設定（1920px 上の本文フォントサイズと一致させる）
+
+  ・--font_size_factor は全体スケールを調整するための倍率
+    → デバイスごとに視認性を保つ目的で、フォント全体のサイズを調整
+    → 例：ノートPC で 0.87、スマホで 0.8 など
+
+  ・.fs_xx のクラスは PHP などで静的に生成しておく
+    → clamp() は使っていないので、CSS だけで制御可能
+    → js との依存なし、パフォーマンスに優れる
+
+  ・max() による最低サイズ指定があるため、意図せずフォントが極端に小さくなるのを防げる
+    → `font-size: max(10px, ... )` など
+
+  ・--font_size_actual よりも --font_size の方が大きい場合、
+    jump の補正は **現状は無視される（または弱く作用する）**
+    → 必要に応じて別途補正処理を入れてもよい
+  */
+
+}
+@media screen and (max-width: 1500px){
+	:root{
+		--font_size: 16;
+    --font_size_factor: .96;
+	}
+}
+@media screen and (max-width: 1330px){
+	:root{
+		--font_size: 16;
+	}
+}
+@media screen and (max-width: 1200px){
+	:root{
+		--font_size: 16;
+	}
+}
+@media screen and (max-width: 1024px){
+  :root{
+		--font_size: 15;
+  }
+}
+@media screen and (max-width: 520px){
+  :root{
+		--font_size: 15;
+    --font_size_jump: .54;
+    --font_size_factor: 1;
+  }
+}
+@media screen and (max-width: 360px){
+  :root{
+		--font_size: 14;
+  }
+}
+@media screen and (max-width: 320px){
+  :root{
+		--font_size: 13;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+
+html{
+	font-size: calc(var(--font_size) * 1px);
+	font-family: "Noto Sans JP", sans-serif !important;
+	font-weight: 700;
+}
+body{
+	line-height: 1.75;
+}
+
+
+/*--------------------------------------------------------------------*/
+/* font-family */
+
+.ff_figtree{
+  font-family: "Figtree", sans-serif;
+}
+.ff_roboto{
+  font-family: "Roboto", sans-serif;
+}
+.ff_notosans{
+  font-family: "Noto Sans JP", sans-serif;
+}
+.ff_notoserif{
+  font-family: "Noto Serif JP", serif;
+}
+
+
+/*--------------------------------------------------------------------*/
+/* 装飾 */
+
+.fc_blue{
+	color: #3CF !important;
+}
+.fc_white{
+	color: #FFF;
+}
+.fc_link{
+	color: #0365BA;
+}
+.fc_primary{
+	color: var(--c_primary);
+}
+
+.fc_orange{
+	color: #D9A877;
+}
+.fc_green{
+	color: #8AB879;
+}
+
+._tac{
+	text-align: center;
+}
+._tar{
+	text-align: right;
+}
+._tal{
+	text-align: left;
+}
+
+/*--------------------------------------------------------------------*/
+/* text-decoration */
+
+.td_underline{
+	text-decoration: underline;
+}
+.td_none{
+	text-decoration: none;
+}
+.fs_italic{
+  font-style: italic;
+}
+
+/*--------------------------------------------------------------------*/
+/* font-weight */
+
+.fw_t, .fw_thin, .fw_100{
+	font-weight: 100;
+}
+.fw_l, .fw_light, .fw_300{
+	font-weight: 300;
+}
+.fw_r, .fw_regular, .fw_400{
+	font-weight: 400;
+}
+.fw_m, .fw_medium, .fw_500{
+	font-weight: 500;
+}
+.fw_mb, .fw_medium_bold, .fw_600{
+	font-weight: 600;
+}
+.fw_b, .fw_bold, .fw_700{
+	font-weight: 700;
+}
+.fw_bl, .fw_black, .fw_900{
+	font-weight: 900;
+}
+
+/*--------------------------------------------------------------------*/
+/* line-height */
+
+.lh_100{
+	line-height: 1;
+}
+.lh_125{
+	line-height: 1.25;
+}
+.lh_150{
+	line-height: 1.5;
+}
+.lh_175{
+	line-height: 1.75;
+}
+.lh_180{
+	line-height: 1.8;
+}
+.lh_200{
+	line-height: 2;
+}
+.lh_250{
+	line-height: 2.5;
+}
+.lh_300{
+	line-height: 3;
+}
+
+/*--------------------------------------------------------------------*/
+/*　letter-spacing　*/
+
+.ls_0{
+  letter-spacing: 0em;
+}
+.ls_20{
+  letter-spacing: .02em;
+}
+.ls_40{
+  letter-spacing: .04em;
+}
+.ls_60{
+  letter-spacing: .06em;
+}
+.ls_80{
+  letter-spacing: .08em;
+}
+.ls_100{
+  letter-spacing: .1em;
+}
+.ls_120{
+  letter-spacing: .12em;
+}
+
+/*--------------------------------------------------------------------*/
+/* font-size */
+
+
+
+.fs_10 {
+  --font_size_actual: 10;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 10px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_11 {
+  --font_size_actual: 11;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 11px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_12 {
+  --font_size_actual: 12;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 12px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_13 {
+  --font_size_actual: 13;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 13px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_14 {
+  --font_size_actual: 14;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 14px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_15 {
+  --font_size_actual: 15;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 15px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_16 {
+  --font_size_actual: 16;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 16px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_17 {
+  --font_size_actual: 17;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 17px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_18 {
+  --font_size_actual: 18;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 18px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_19 {
+  --font_size_actual: 19;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 19px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_20 {
+  --font_size_actual: 20;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 20px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_21 {
+  --font_size_actual: 21;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 21px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_22 {
+  --font_size_actual: 22;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 22px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_23 {
+  --font_size_actual: 23;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 23px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_24 {
+  --font_size_actual: 24;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 24px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_25 {
+  --font_size_actual: 25;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 25px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_26 {
+  --font_size_actual: 26;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 26px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_27 {
+  --font_size_actual: 27;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 27px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_28 {
+  --font_size_actual: 28;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 28px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_29 {
+  --font_size_actual: 29;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 29px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_30 {
+  --font_size_actual: 30;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 30px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_31 {
+  --font_size_actual: 31;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 31px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_32 {
+  --font_size_actual: 32;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 32px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_33 {
+  --font_size_actual: 33;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 33px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_34 {
+  --font_size_actual: 34;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 34px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_35 {
+  --font_size_actual: 35;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 35px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_36 {
+  --font_size_actual: 36;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 36px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_37 {
+  --font_size_actual: 37;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 37px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_38 {
+  --font_size_actual: 38;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 38px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_39 {
+  --font_size_actual: 39;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 39px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_40 {
+  --font_size_actual: 40;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 40px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_41 {
+  --font_size_actual: 41;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 41px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_42 {
+  --font_size_actual: 42;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 42px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_43 {
+  --font_size_actual: 43;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 43px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_44 {
+  --font_size_actual: 44;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 44px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_45 {
+  --font_size_actual: 45;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 45px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_46 {
+  --font_size_actual: 46;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 46px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_47 {
+  --font_size_actual: 47;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 47px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_48 {
+  --font_size_actual: 48;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 48px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_49 {
+  --font_size_actual: 49;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 49px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_50 {
+  --font_size_actual: 50;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 50px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_51 {
+  --font_size_actual: 51;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 51px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_52 {
+  --font_size_actual: 52;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 52px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_53 {
+  --font_size_actual: 53;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 53px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_54 {
+  --font_size_actual: 54;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 54px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_55 {
+  --font_size_actual: 55;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 55px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_56 {
+  --font_size_actual: 56;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 56px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_57 {
+  --font_size_actual: 57;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 57px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_58 {
+  --font_size_actual: 58;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 58px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_59 {
+  --font_size_actual: 59;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 59px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_60 {
+  --font_size_actual: 60;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 60px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_61 {
+  --font_size_actual: 61;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 61px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_62 {
+  --font_size_actual: 62;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 62px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_63 {
+  --font_size_actual: 63;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 63px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_64 {
+  --font_size_actual: 64;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 64px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_65 {
+  --font_size_actual: 65;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 65px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_66 {
+  --font_size_actual: 66;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 66px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_67 {
+  --font_size_actual: 67;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 67px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_68 {
+  --font_size_actual: 68;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 68px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_69 {
+  --font_size_actual: 69;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 69px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_70 {
+  --font_size_actual: 70;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 70px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_71 {
+  --font_size_actual: 71;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 71px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_72 {
+  --font_size_actual: 72;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 72px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_73 {
+  --font_size_actual: 73;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 73px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_74 {
+  --font_size_actual: 74;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 74px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_75 {
+  --font_size_actual: 75;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 75px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_76 {
+  --font_size_actual: 76;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 76px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_77 {
+  --font_size_actual: 77;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 77px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_78 {
+  --font_size_actual: 78;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 78px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_79 {
+  --font_size_actual: 79;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 79px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_80 {
+  --font_size_actual: 80;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 80px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_81 {
+  --font_size_actual: 81;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 81px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_82 {
+  --font_size_actual: 82;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 82px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_83 {
+  --font_size_actual: 83;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 83px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_84 {
+  --font_size_actual: 84;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 84px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_85 {
+  --font_size_actual: 85;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 85px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_86 {
+  --font_size_actual: 86;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 86px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_87 {
+  --font_size_actual: 87;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 87px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_88 {
+  --font_size_actual: 88;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 88px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_89 {
+  --font_size_actual: 89;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 89px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_90 {
+  --font_size_actual: 90;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 90px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_91 {
+  --font_size_actual: 91;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 91px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_92 {
+  --font_size_actual: 92;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 92px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_93 {
+  --font_size_actual: 93;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 93px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_94 {
+  --font_size_actual: 94;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 94px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_95 {
+  --font_size_actual: 95;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 95px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_96 {
+  --font_size_actual: 96;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 96px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_97 {
+  --font_size_actual: 97;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 97px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_98 {
+  --font_size_actual: 98;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 98px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_99 {
+  --font_size_actual: 99;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 99px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}
+.fs_100 {
+  --font_size_actual: 100;
+  --font_size_ratio: calc((var(--font_size_actual) - ((var(--font_size_actual) - var(--font_size)) * var(--font_size_jump))) / var(--font_size_base));
+  font-size: 100px;
+  font-size: max(10px, calc((var(--font_size) * var(--font_size_factor)) * var(--font_size_ratio) * 1px));
+}

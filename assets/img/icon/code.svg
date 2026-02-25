@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58">
+  <g id="code" transform="translate(-689 -1438)">
+    <rect id="長方形_3593" data-name="長方形 3593" width="58" height="58" transform="translate(689 1438)" fill="none"/>
+    <g id="グループ_18227" data-name="グループ 18227" transform="translate(694 1447)">
+      <g id="グループ_18211" data-name="グループ 18211" transform="translate(0)">
+        <path id="パス_19249" data-name="パス 19249" d="M44.641,25H2.778A2.709,2.709,0,0,0,0,27.627V53.721a2.709,2.709,0,0,0,2.778,2.627H44.641a2.709,2.709,0,0,0,2.778-2.627V27.627A2.709,2.709,0,0,0,44.641,25Z" transform="translate(0 -25)"/>
+        <path id="パス_19250" data-name="パス 19250" d="M112.026,416.853h-7.5V413H89.891v3.853h-7.5a1.316,1.316,0,1,0,0,2.627h29.637a1.316,1.316,0,1,0,0-2.627Z" transform="translate(-73.498 -379.025)"/>
+      </g>
+      <path id="パス_19251" data-name="パス 19251" d="M-6229.44,1498.362l-5.532,5.231,5.532,5.231" transform="translate(6247.572 -1488.11)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+      <path id="パス_19252" data-name="パス 19252" d="M-6234.972,1498.362l5.532,5.231-5.532,5.231" transform="translate(6264.259 -1488.11)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+      <line id="線_238" data-name="線 238" x1="3.513" y2="9.964" transform="translate(22.675 10.367)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

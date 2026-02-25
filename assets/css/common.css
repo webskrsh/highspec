@@ -1,0 +1,119 @@
+@charset "utf-8";
+
+:root{
+
+	--bp_pc_max: 3840px;
+	--bp_pc_bas: 1920px;
+	--bp_pc_min: 1281px;
+	--bp_tb_max: 1280px;
+	--bp_tb_min: 521px;
+	--bp_sp_max: 520px;
+	--bp_sp_min: 340px;
+
+}
+
+html{
+	
+}
+
+/*--------------------------------------*/
+
+body{
+	
+}
+@media screen and (min-width: 521px){
+	body{
+
+	}
+}
+@media screen and (max-width: 520px){
+	body{
+
+	}
+}
+
+@keyframes csn-rotate{
+	to{
+		transform: rotate(360deg);
+	}
+}
+
+/*--------------------------------------*/
+
+#wrapper{
+	
+}
+@media screen and (min-width: 521px){
+	#wrapper{
+
+	}
+}
+@media screen and (max-width: 520px){
+	#wrapper{
+
+	}
+}
+
+/*--------------------------------------*/
+
+#main{
+	
+}
+@media screen and (min-width: 521px){
+	#main{
+
+	}
+}
+@media screen and (max-width: 520px){
+	#main{
+
+	}
+}
+
+/*--------------------------------------*/
+
+#contents{
+	
+}
+@media screen and (min-width: 521px){
+	#contents{
+
+	}
+}
+@media screen and (max-width: 520px){
+	#contents{
+
+	}
+}
+
+/*--------------------------------------*/
+
+#sidebar{
+	
+}
+@media screen and (min-width: 521px){
+	#sidebar{
+
+	}
+}
+@media screen and (max-width: 520px){
+	#sidebar{
+
+	}
+}
+
+/*--------------------------------------*/
+
+footer{
+	
+}
+@media screen and (min-width: 521px){
+	footer{
+
+	}
+}
+@media screen and (max-width: 520px){
+	footer{
+
+	}
+}

@@ -1,0 +1,1065 @@
+/**********************************************************************/
+/* 共通レイアウト
+/**********************************************************************/
+
+[data-offset]{
+  padding-right: calc(var(--form_width) + 4vw) !important;
+}
+@media screen and (max-width: 520px){
+  [data-offset]{
+    padding-right: 0 !important;
+  }
+}
+
+/**********************************************************************/
+/*  ヒーロー
+/**********************************************************************/
+
+section.hero{
+  background: radial-gradient(
+    ellipse 120% 200% at 50% -40%,
+    #336753 0%,
+    #326450 40%,
+    #234733 100%
+  );
+}
+section.hero .bg{
+  background-image: url("../img/home/hero_image_1.png");
+  background-repeat: no-repeat;
+  background-position: left calc(27em + ((100vw - 1280px) / 2)) bottom;
+  background-size: auto 100%;
+  padding: 5em 4vw;
+}
+@media screen and (max-width: 520px){
+  section.hero .bg{
+    padding: 3em 5vw 0 5vw;
+    padding-right: 5vw !important;
+    background-position: center bottom;
+    background-size: 100% auto;
+  }
+  section.hero .lead{
+    align-items: stretch;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* title */
+
+section.hero .title{
+  margin-bottom: 1em;
+}
+section.hero .title .line{
+  display: block;
+}
+section.hero .title .line.main{
+  margin: .15em 0;
+}
+@media screen and (max-width: 520px){
+  section.hero .title .line.pre{
+    font-size: 7.5vw;
+  }
+  section.hero .title .line.main{
+    font-size: 12vw;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* tags */
+
+section.hero .tags{
+  gap: 1em;
+}
+@media screen and (max-width: 520px){
+  section.hero .tags{
+    flex-wrap: wrap;
+    gap: .25em 1em;
+    font-size: 3.8vw;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* actions */
+
+section.hero .bottom{
+  margin-top: 2em;
+}
+section.hero .bottom .description{
+  margin-top: 2em;
+}
+section.hero .bottom .actions{
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  gap: .75em;
+}
+section.hero .bottom .actions button{
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 1em 1em;
+  line-height: 1.5;
+  background-color: #112D20;
+  border-radius: .5em;
+  flex: 1;
+  font-weight: inherit;
+  min-width: 14em;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+section.hero .bottom .actions button::before{
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;;
+  background: radial-gradient(
+    ellipse 50% 100% at 50% 100%,
+    #0C673D 0%,
+    #112D20 100%
+  );
+  filter: brightness(1.2);
+  box-shadow: 0 0 2em rgba(51,103,83,.4);
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+section.hero .bottom .actions button:hover::before{
+  opacity: 1;
+}
+@media screen and (max-width: 520px){
+  section.hero .bottom{
+    margin-top: 60vw;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  section.hero .bottom .description{
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+  section.hero .bottom .actions{
+    display: flex;
+    padding: 1em 5vw;
+    margin: 0 -5vw;
+    background-color: rgba(0,0,0,.6);
+  }
+  section.hero .bottom .actions button{
+    min-width: 0;
+    padding-inline: 0;
+    flex: 1;
+    font-size: clamp(10px, 3.4vw, 16px);
+  }
+  section.hero .bottom .actions button::before{
+    opacity: 1;
+  }
+}
+
+/**********************************************************************/
+/* フォーム
+/**********************************************************************/
+
+section.form{
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: .5em 0 .5em 0;
+  height: 100vh;
+  box-sizing: border-box;
+  z-index: 10;
+}
+section.form .container{
+  width: var(--form_width);
+  background-color: var(--c_form_white);
+  border-radius: 1em 0 0 1em;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: -4px 0 2em rgba(8,56,36,0.07);
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+section.form .container::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+}
+
+/*--------------------------------------------------------------------*/
+/* heading */
+
+section.form .container .heading{
+  padding: 1em 0;
+  border-bottom: 1px solid var(--c_border);
+}
+section.form .container .heading .title{
+  display: inline-block;
+  padding: .5em 1.9em;
+  background-image: url("../img/home/form_laurel_l.svg"), url("../img/home/form_laurel_r.svg");
+  background-repeat: no-repeat;
+  background-position: left center, right center;
+  background-size: 1.5em auto;
+  margin: auto;
+}
+
+/*--------------------------------------------------------------------*/
+/* bodying */
+
+section.form .container .bodying{
+  padding: 2em 2em 2em 2em;
+}
+section.form .container .bodying form .control{
+  margin-bottom: .5em;
+}
+section.form .container .bodying form .control .index{
+  position: relative;
+  margin-bottom: 1px;
+  padding-inline: .25em;
+}
+section.form .container .bodying form .control .index.required::after,
+section.form .container .bodying form .control label.required::after{
+  content: "必須";
+  display: inline-block;
+  font-size: 90%;
+  color: var(--c_red);
+  font-weight: 500;
+}
+section.form .container .bodying form .control .input{
+  height: 3em;
+  font-size: 16px;
+}
+
+/*--------------------------------------------------------------------*/
+/* フォームコントロール */
+
+section.form .container .bodying form .control .input input[type="text"],
+section.form .container .bodying form .control .input input[type="email"],
+section.form .container .bodying form .control .input input[type="tel"],
+section.form .container .bodying form .control .input select,
+section.form .container .bodying form .control .input button{
+  height: 3em;
+  border: 1px solid var(--c_form_border);
+  box-sizing: border-box;
+  padding: .1em 1em;
+  border-radius: .5em;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+}
+section.form .container .bodying form .control .input input[type="text"]:focus,
+section.form .container .bodying form .control .input input[type="email"]:focus,
+section.form .container .bodying form .control .input input[type="tel"]:focus,
+section.form .container .bodying form .control .input select:focus{
+  border-color: var(--c_primary);
+  background-color: #f5fbf6;
+  box-shadow: 0 0 1em rgba(12, 171, 99 ,0.13);
+}
+/* セレクト */
+section.form .container .bodying form .control .input select{
+  padding-right: 1.5em;
+  background-image: url("../img/ui/arrow_select.svg");
+  background-repeat: no-repeat;
+  background-position: right .75em center;
+  background-size: .75em auto;
+}
+/* ラヂオ */
+section.form .container .bodying form .control .input label{
+  display: inline-block;
+  position: relative;
+  font-weight: 500;
+  cursor: pointer;
+}
+section.form .container .bodying form .control .input label input[type="radio"]{
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+section.form .container .bodying form .control .input label + label{
+  margin-left: 1em;
+}
+section.form .container .bodying form .control .input label .label{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+section.form .container .bodying form .control .input label input[type="radio"] + .label::before{
+  content: "";
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid #bfbfbf;
+  background-color: #F8F8F8;
+  transform: translate(0, 10%);
+  margin-right: .3em;
+  border-radius: 50%;
+  transition: background-color .3s;
+}
+section.form .container .bodying form .control .input label input[type="radio"]:checked + .label::before{
+  background-color: #E5FFE8;
+  border-color: var(--c_primary);
+  background-image: url("../img/ui/check_radio.svg");
+  background-repeat: no-repeat;
+  background-position: center top 60%;
+  background-size: 12px auto;
+}
+/* チェックボックス */
+section.form .container .bodying form .control .input label input[type="checkbox"]{
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;;
+}
+section.form .container .bodying form .control .input label input[type="checkbox"] + .label::before{
+  content: "";
+  display: inline-block;
+  width: 1.3em;
+  height: 1.3em;
+  border: 1px solid #bfbfbf;
+  background-color: #F8F8F8;
+  transform: translate(0, 5%);
+  margin-right: .3em;
+  border-radius: 5px;
+  transition: background-color .3s;
+  margin-right: .5em;
+}
+section.form .container .bodying form .control .input label input[type="checkbox"]:checked + .label::before{
+  background-color: #E5FFE8;
+  border-color: var(--c_primary);
+  background-image: url("../img/ui/check_checkbox.svg");
+  background-repeat: no-repeat;
+  background-position: center top 60%;
+  background-size: 13px auto;
+}
+/* ボタン */
+section.form .container .bodying form .control .input button{
+  height: 3em;
+}
+
+
+/*--------------------------------------------------------------------*/
+/* 生年月日 */
+
+section.form .container .bodying form .control[data-part="birthday"] .input{
+  gap: 5px;
+}
+section.form .container .bodying form .control[data-part="birthday"] .input select:nth-of-type(1){
+  flex: 1.5;
+}
+section.form .container .bodying form .control[data-part="birthday"] .input select:nth-of-type(2){
+  flex: 1;
+}
+section.form .container .bodying form .control[data-part="birthday"] .input select:nth-of-type(3){
+  flex: 1;
+}
+
+/*--------------------------------------------------------------------*/
+/* 職務経歴書 */
+
+section.form .container .bodying form .control[data-part="upload"] .input button .label{
+  padding-right: 1.5em;
+  background-image: url("../img/ui/upload.svg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto;
+}
+section.form .container .bodying form .control[data-part="upload"] .uploaded{
+  padding: 1em .5em;
+}
+section.form .container .bodying form .control[data-part="upload"] .uploaded li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+section.form .container .bodying form .control[data-part="upload"] .uploaded .name{
+  padding-left: 1.15em;
+  background-image: url("../img/ui/file.svg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: .7em auto;
+}
+section.form .container .bodying form .control[data-part="upload"] .uploaded button.delete{
+  width: 1em;
+  height: 1em;
+  background-image: url("../img/ui/close.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.75m auto;
+  margin-top: .2em;
+}
+section.form .container .bodying form .control[data-part="upload"] .uploaded button.delete:hover{
+  opacity: .5;
+}
+
+/*--------------------------------------------------------------------*/
+/* 利用規約、個人情報に同意 */
+
+section.form .container .bodying form .control[data-part="agreement"] label{
+  display: flex;
+  gap: .5em;
+}
+section.form .container .bodying form .control[data-part="agreement"] label::after{
+  margin-left: auto;
+}
+section.form .container .bodying form .control[data-part="agreement"] .input a{
+  text-decoration: underline;
+}
+
+/*--------------------------------------------------------------------*/
+/* サブミット */
+
+section.form .container .bodying form .control[data-part="submit"] button{
+  color: var(--c_white);
+  background-color: var(--c_primary);
+  padding-block: 1em;
+  height: auto;
+  cursor: pointer;
+  transition: filter .3s;
+}
+section.form .container .bodying form .control[data-part="submit"] button:hover{
+  filter: brightness(1.25);
+}
+section.form .container .bodying form .control[data-part="submit"] .recaptcha{
+  padding: 2em 0 0 0;
+  color: #949494;
+}
+
+/**********************************************************************/
+/* スクロールロゴ
+/**********************************************************************/
+
+section.logos .container{
+  overflow: hidden;
+}
+section.logos .track{
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  animation: scroll_logo 6s linear infinite;
+  will-change: transform;
+}
+section.logos .group{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+  padding-right: 5px; 
+}
+section.logos img{
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
+@keyframes scroll_logo{
+  0%{
+    transform: translateX(0);
+  }
+  100%{
+    transform: translateX(-25%);
+  }
+}
+
+@media screen and (max-width: 520px){
+  section.logos img{
+    height: 40px;
+  }
+}
+
+/**********************************************************************/
+/* イントロ
+/**********************************************************************/
+
+section.intro{
+  padding: 5em 4vw;
+}
+section.intro .container{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: 
+  "title image"
+  "description image"
+  "link image";
+}
+section.intro .title{
+  grid-area: title;
+  margin-bottom: 1em;
+}
+section.intro .description{
+  grid-area: description;
+  max-width: 19em;
+  margin-bottom: 2em;
+}
+section.intro .link{
+  grid-area: link;
+}
+@media screen and (max-width: 520px){
+  section.intro{
+    padding: 3em 6vw;
+    padding-right: 6vw !important;
+  }
+  section.intro .container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: 
+    "title"
+    "description"
+    "image"
+    "link";
+  }
+  section.intro .title{
+    font-size: 8vw;
+    margin-bottom: .5em;
+  }
+  section.intro .description{
+    max-width: none;
+    margin-bottom: 2em;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* link */
+
+section.intro .link a{
+  width: 100%;
+  background-color: var(--c_black);
+  color: #fff;
+  display: inline-block;
+  max-width: 22em;
+  box-sizing: border-box;
+  padding: 1em;
+  text-align: center;
+}
+section.intro .link a{
+  width: 100%;
+  background-color: var(--c_black);
+  color: #fff;
+  display: inline-block;
+  max-width: 22em;
+  box-sizing: border-box;
+  padding: 1em;
+  text-align: center;
+}
+@media screen and (max-width: 520px){
+  section.intro .link{
+    margin-top: 1em;
+    text-align: center; 
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* image */
+
+section.intro .image{
+  grid-area: image;
+  height: 28em;
+  background-image: url("../img/home/intro_image.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  position: relative;
+}
+section.intro .image .terms{
+  position: absolute;
+  right: 0;
+  padding-top: 2em;
+}
+section.intro .image .terms ul{
+  text-align: right;
+  max-width: 12em;
+}
+section.intro .image .terms ul li{
+  display: inline-block;
+  margin-right: .75em;
+}
+section.intro .image .layers{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -40%);
+  gap: 4em;
+}
+section.intro .image .layers .item.i1{
+  transform: translate(0, -50%);
+}
+section.intro .image .layers .item.i2,
+section.intro .image .layers .item.i3{
+  opacity: .6;
+}
+section.intro .image .layers .item.i2 .name,
+section.intro .image .layers .item.i3 .name{
+  color: #2C5844;
+}
+@media screen and (max-width: 520px){
+  section.intro .image{
+    background-size: 140% auto;
+    background-position: center bottom;
+    height: 30em;
+  }
+  section.intro .image .terms{
+    position: static;
+    padding-top: 0;
+    padding: 1em;
+    background-color: #F2F6F4;
+  }
+  section.intro .image .terms ul{
+    text-align: left;
+    max-width: none;
+  }
+  section.intro .image .terms ul li{
+    font-size: 14px;
+  }
+}
+
+/**********************************************************************/
+/* 紹介形態
+/**********************************************************************/
+
+section.types{
+  padding-inline: 4vw;
+  padding-bottom: 6em;
+}
+section.types .heading{
+  padding-top: 4em;
+  border-top: 1px solid var(--c_border);
+  margin-bottom: 1.5em;
+}
+section.types .bodying .block{
+  gap: 1em;
+  text-align: center;
+}
+section.types .bodying .block .item{
+  flex: 1;
+  background-color: var(--c_lightgray);
+}
+section.types .bodying .block .item .label{
+  padding: 1.25em 0 1.25em 4em;
+  display: inline-block;
+  background-image: url("../img/icon/building.svg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 2.9em auto;
+}
+section.types .bodying .block .item.i2 .label{
+  background-image: url("../img/icon/code.svg");
+}
+section.types .bodying .block .item.i3 .label{
+  background-image: url("../img/icon/profile.svg");
+}
+@media screen and (max-width: 520px){
+  section.types{
+    padding-inline: 4vw !important;
+    padding-bottom: 2em;
+  }
+  section.types .heading{
+    padding-top: 3em;
+  }
+  section.types .heading .index{
+    --font_size: 18;
+  }
+  section.types .bodying .block{
+    flex-direction: column;
+    align-items: stretch;
+    gap: .5em;
+  }
+}
+
+/**********************************************************************/
+/* 紹介できる理由
+/**********************************************************************/
+
+section.reasons{
+  padding: 6em 4vw;
+  background: radial-gradient(
+    ellipse 120% 400% at 50% 80%,
+    #24614A 0%,
+    #234733 100%
+  );
+}
+section.reasons .heading{
+  margin-bottom: 2em;
+}
+section.reasons .bodying .block{
+  gap: 1.5%;
+  justify-content: space-between;
+}
+section.reasons .bodying .block .item{
+  max-width: 31%;
+}
+section.reasons .bodying .block .item .index{
+  white-space: nowrap;
+  text-align: center;
+  margin-bottom: .25em;
+  margin-top: 1em;
+}
+@media screen and (max-width: 520px){
+  section.reasons{
+    padding: 4em 5vw;
+    padding-right: 5vw !important;
+  }
+  section.reasons .bodying .block{
+    flex-direction: column;
+    gap: 3em 0;
+  }
+  section.reasons .bodying .block .item{
+    max-width: none;
+    padding: 0 3vw;
+  }
+  section.reasons .bodying .block .item .medal img{
+    width: 150px;
+    height: auto;
+  }
+  section.reasons .bodying .block .item .description{
+    --font_size: 16;
+  }
+}
+
+/**********************************************************************/
+/* ご紹介できる案件例
+/**********************************************************************/
+
+section.jobs{
+  padding: 4em 4vw;
+  background-color: #214939;
+}
+section.jobs .heading{
+  margin-bottom: 2em;
+}
+section.jobs .bodying .list{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2em;
+}
+section.jobs .bodying .item{
+  padding: 2em;
+  border-radius: 2em;
+  background-color: var(--c_white);
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: 
+  "title title income"
+  "offer detail detail"
+  "cta cta cta";
+  gap: 1em;
+}
+section.jobs .bodying .item .title{
+  grid-area: title;
+}
+section.jobs .bodying .item .income{
+  grid-area: income;
+}
+section.jobs .bodying .item .offer{
+  grid-area: offer;
+}
+section.jobs .bodying .item .detail{
+  grid-area: detail;
+}
+section.jobs .bodying .item .cta{
+  grid-area: cta;
+}
+@media screen and (max-width: 520px){
+  section.jobs{
+    padding-left: 2vw;
+    padding-right: 2vw !important;
+  }
+  section.jobs .bodying .list{
+    gap: 4vw;
+  }
+  section.jobs .bodying .item{
+    padding: 2em 4vw;
+    border-radius: 1em;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: 
+    "title"
+    "income"
+    "offer"
+    "detail"
+    "cta";
+    gap: 4vw;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* title */
+
+section.jobs .bodying .item .title{
+  max-width: 26em;
+  line-height: 1.5;
+}
+
+/*--------------------------------------------------------------------*/
+/* income */
+
+section.jobs .bodying .item .income{
+  
+}
+section.jobs .bodying .item .income .label{
+  background-color: var(--c_lightgray);
+  padding: .75em 1.5em;
+  border-radius: .5em 0;
+  white-space: nowrap;
+}
+
+/*--------------------------------------------------------------------*/
+/* offer */
+
+section.jobs .bodying .item .offer{
+  padding-right: 2em;
+  margin-right: 1em;
+  border-right: 1px solid var(--c_border);
+}
+section.jobs .bodying .item .offer table{
+  border-collapse: separate;
+  border-spacing: .5em;
+}
+section.jobs .bodying .item .offer table th .label{
+  background-color: var(--c_lightgray);
+  padding: .1em 1em .1em 1.9em;
+  background-image: url("../img/icon/pin.png");
+  background-repeat: no-repeat;
+  background-position: left .5em center;
+  background-size: 17px auto;
+  width: 7em;
+  box-sizing: border-box;
+}
+section.jobs .bodying .item .offer table th .label.week{
+  background-image: url("../img/icon/bag.png");
+}
+section.jobs .bodying .item .offer table th .label.remote{
+  background-image: url("../img/icon/clock.png");
+}
+section.jobs .bodying .item .offer table th .label.lang{
+  background-image: url("../img/icon/code.png");
+}
+section.jobs .bodying .item .offer table th .label.env{
+  background-image: url("../img/icon/pc.png");
+}
+section.jobs .bodying .item .offer table td .data{
+  padding-left: .15em;;
+}
+@media screen and (max-width: 520px){
+  section.jobs .bodying .item .offer{
+    padding-right: 0;
+    margin-right: 0;
+    border-bottom: 1px solid var(--c_border);
+    border-right: 0;
+    padding-bottom: 1em;
+    margin-bottom: 0em;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* cta */
+
+section.jobs .bodying .item .cta{
+  margin-top: .5em;
+  background-color: var(--c_lightgray);
+  padding: 1em;
+}
+section.jobs .bodying .item .cta button{
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  background-color: var(--c_black);
+  color: #fff;
+  padding: .5em 1em .65em 1em;
+  border-radius: .5em;
+}
+@media screen and (max-width: 520px){
+  section.jobs .bodying .item .cta{
+    flex-direction: column;
+    gap: 1em;
+    text-align: center;
+  }
+  section.jobs .bodying .item .cta .message{
+    max-width: 17em;
+    margin: auto;
+    line-height: 1.5;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* contact */
+section.jobs .bodying .contact{
+  padding: 3em 0;
+}
+section.jobs .bodying .contact a{
+  text-decoration: underline;
+}
+@media screen and (max-width: 520px){
+  section.jobs .bodying .contact{
+    padding: 3em 1em 0 1em;
+  }
+  section.jobs .bodying .contact > *{
+    display: inline;
+  }
+}
+
+/**********************************************************************/
+/* ご利用の流れ
+/**********************************************************************/
+
+section.flow{
+  padding: 4em 4vw;
+  background-color: var(--c_lightgray);
+}
+section.flow .heading{
+  margin-bottom: 1em;
+}
+section.flow .bodying{
+  padding: 2em 0;
+}
+section.flow .bodying .block{
+  gap: 1em;
+}
+section.flow .bodying .item .label{
+  color: #fff;
+  border-radius: .5em;
+  background-color: #2C5844;
+  padding: .75em 1em;
+}
+section.flow .bodying .item.i2 .label{
+  background: radial-gradient(
+    ellipse 50% 100% at 50% 5%,
+    #086A3E 0%,
+    #2C5844 100%
+  );
+}
+section.flow .bodying .item.i4 .label{
+  background-color: #747716;
+}
+@media screen and (max-width: 520px){
+  section.flow{
+    padding: 4em 4vw;
+    padding-right: 4vw !important;
+  }
+  section.flow .heading .index{
+    --font_size: 18;
+  }
+  section.flow .bodying{
+    padding-bottom: 0;
+  }
+  section.flow .bodying .block{
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  section.flow .bodying .block .item{
+    padding-right: 0;
+    padding-bottom: 1em;
+  }
+  section.flow .bodying .block .item .label{
+    padding-block: 1.5em;
+  }
+  section.flow .bodying .block .item::before{
+    bottom: 0;
+    top: auto;
+    left: 50%;
+    right: auto;
+    transform: rotate(135deg);
+  }
+}
+
+/**********************************************************************/
+/* よくあるご質問
+/**********************************************************************/
+
+section.faq{
+  padding: 4em 4vw;
+}
+section.faq .heading{
+  margin-bottom: 2em;
+}
+@media screen and (max-width: 520px){
+  section.faq{
+    padding: 3em 4vw;
+    padding-right: 4vw !important;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* question */
+
+section.faq .list .item{
+  margin-bottom: .5em;
+}
+section.faq .list .item .q{
+  display: flex;
+  gap: .75em;
+  cursor: pointer;
+  padding: .5em 1em;
+  background-color: #fbfbfb;
+  border: 1px solid #E6E6E6;
+}
+section.faq .list .item .q::before{
+  content: "Q";
+  display: inline-block;
+  font-weight: 700;
+}
+section.faq .list .item .q:hover{
+  color: var(--c_primary);
+}
+section.faq .list .item .q .index{
+  flex: 1;
+}
+@media screen and (max-width: 520px){
+  section.faq .list .item .q{
+    font-size: 105%;
+    display: flex;
+    gap: .75em;
+    cursor: pointer;
+    line-height: 1.5;
+  }
+  section.faq .list .item .q::before{
+    display: none;
+  }
+  ._accordion_button .click::before, ._accordion_button .click::after{
+    width: 12px;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* answear */
+
+section.faq .list .item .a{
+  height: 0;
+  overflow: hidden;
+  transition: height .3s ease;
+}
+section.faq .list .item .a .text{
+  padding: 1em;
+  font-weight: 500;
+}
+section.faq .list .item .a .text a{
+  color: var(--c_blue);
+  text-decoration: underline;
+}
+@media screen and (max-width: 520px){
+  section.faq .list .item .a .text{
+    padding-left: 0;
+    padding-bottom: 1em;
+    padding-inline: .5em;
+  }
+}
+
+/*--------------------------------------------------------------------*/
+/* default open */
+
+section.faq .list .item.open .a{
+  height: auto;
+}
+
+@media screen and (max-width: 520px){
+  section.form{
+    display: none;
+  }
+}
