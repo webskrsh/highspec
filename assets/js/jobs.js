@@ -82,7 +82,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const setText = (field, value) => {
         const el = frag.querySelector(`[data-field="${field}"]`);
-        if (el) el.textContent = value ?? "";
+        if (!el) return;
+
+        const normalized =
+          value === undefined ||
+          value === null ||
+          (typeof value === "string" && value.trim() === "")
+            ? "---"
+            : value;
+
+        el.textContent = normalized;
       };
 
       const income = normalizeIncome(job);

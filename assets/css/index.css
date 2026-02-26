@@ -815,11 +815,12 @@ section.reasons .bodying .block .item .index{
     padding: 0 3vw;
   }
   section.reasons .bodying .block .item .medal img{
-    width: 150px;
+    width: 50vw;
     height: auto;
   }
   section.reasons .bodying .block .item .index{
     font-size: 5.5vw;
+    margin-top: .5em;
   }
   section.reasons .bodying .block .item .description{
     --font_size: 16;
@@ -848,7 +849,7 @@ section.jobs .bodying .item{
   border-radius: 2em;
   background-color: var(--c_white);
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr .5fr .5fr;
   grid-template-rows: auto auto auto;
   grid-template-areas: 
   "title title income"
@@ -898,8 +899,8 @@ section.jobs .bodying .item .cta{
 /* title */
 
 section.jobs .bodying .item .title{
-  max-width: 26em;
   line-height: 1.5;
+  padding-right: 1em;
 }
 
 /*--------------------------------------------------------------------*/
@@ -913,6 +914,14 @@ section.jobs .bodying .item .income .label{
   padding: .75em 1.5em;
   border-radius: .5em 0;
   white-space: nowrap;
+}
+@media screen and (max-width: 520px){
+  section.jobs .bodying .item .income{
+    --font_size: 18;
+  }
+  section.jobs .bodying .item .income .unit{
+    --font_size: 16;
+  }
 }
 
 /*--------------------------------------------------------------------*/
