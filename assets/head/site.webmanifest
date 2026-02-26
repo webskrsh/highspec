@@ -1,0 +1,19 @@
+{
+  "name": "ハイレイヤー人材専用の案件紹介",
+  "short_name": "ハイレイヤー案件",
+  "icons": [
+    {
+      "src": "/assets/head/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/head/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "transparent",
+  "display": "standalone"
+}
