@@ -1024,6 +1024,24 @@ section.jobs .bodying .contact a{
 }
 
 /*--------------------------------------------------------------------*/
+/* toC */
+section.jobs .bodying .toc a{
+  text-decoration: underline;
+  opacity: .6;
+}
+section.jobs .bodying .toc a:hover{
+  opacity: 1;
+}
+@media screen and (max-width: 520px){
+  section.jobs .bodying .contact{
+    padding: 3em 1em 2em 1em;
+  }
+  section.jobs .bodying .contact > *{
+    display: inline;
+  }
+}
+
+/*--------------------------------------------------------------------*/
 
 section.jobs .bodying .placeholder{
   padding: 2em;

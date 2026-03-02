@@ -30,15 +30,32 @@ header .headline .container{
   gap: 1.25em;
   padding: .7em 0
 }
+header .headline .container .start{
+  gap: 1.25em;
+}
+header .headline .container .end a{
+  opacity: .6;
+}
+header .headline .container .end a:hover{
+  opacity: 1;
+}
 @media screen and (max-width: 520px){
   header .headline{
     padding-left: 4vw;
     padding-right: 4vw;
   }
+  header .headline .container{
+    flex-direction: column;
+    gap: .15em;
+    padding-bottom: .25em;
+  }
   header .headline .container .logo img{
     height: 1em;
   }
   header .headline .container .description{
+    font-size: clamp(10px, 3vw, 15px);
+  }
+  header .headline .container .end a{
     font-size: clamp(10px, 3vw, 15px);
   }
 }
